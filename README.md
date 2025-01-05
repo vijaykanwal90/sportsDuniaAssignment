@@ -35,3 +35,25 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # sportsDuniaAssignment
+ ##Project Overview
+Project Name: InfoBreeze
+Description:A responsive web application that allows users to search articles, toggle themes, and access personalized content with authentication. It uses Next.js for server-side rendering, Clerk for authentication, and Tailwind CSS for styling.
+
+Protected Routes: The application includes role-based access control (RBAC) with protected routes for admin and normal users. Admin users have access to admin-specific content and functionality, while normal users have restricted access based on their role. This ensures secure and personalized user experiences.
+Payout Management:
+
+Admin users have the ability to set payout prices for users.
+Normal users can calculate their payout based on the prices set by the admin.
+Users can export their payout data in PDF, and CSV formats for ease of record-keeping and reporting.
+
+Features:
+
+    User authentication using Clerk.
+    Dark/light theme toggle.
+    Search functionality to filter articles.
+    Dynamic display of search results.
+    Responsive design.
+    Protected routes for admin and normal users.
+    Admin users can set payout prices, manage content, and oversee user activity.
+    Normal users have restricted access and can calculate their payouts.
+    Payout calculation for normal users, with options to export data in  PDF, and CSV formats.
