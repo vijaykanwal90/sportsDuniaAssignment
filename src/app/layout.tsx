@@ -38,7 +38,7 @@ import '@/app/globals.css'
 import { Navbar } from '@/components/Navbar'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ApiDataContextProvider } from './Context/Store'
-import { ThemeProvider } from '@/components/theme-provider'
+import { ThemeProvider } from './Context/Theme'
 const geistSans = Geist({
   subsets: ['latin'],
   variable: '--font-sans',
@@ -67,10 +67,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-gray-50 dark:bg-gray-900`}
       >
         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+            
           >
 
         <ApiDataContextProvider >
