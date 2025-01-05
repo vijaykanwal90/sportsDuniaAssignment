@@ -10,6 +10,7 @@ import { ChartArea } from '@/components/charts/chart-area'
 import { ChartBar } from '@/components/charts/chart-bar'
 import { ChartLine } from '@/components/charts/chart-line'
 import { ChartPie } from '@/components/charts/chat-pie'
+import { jsPDF } from "jspdf";
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('dashboard')
@@ -71,7 +72,7 @@ export default function DashboardPage() {
 
   // Export to PDF (Using jsPDF library)
   const exportToPDF = () => {
-    const { jsPDF } = require("jspdf");
+    // const { jsPDF } = require("jspdf");
     const doc = new jsPDF();
 
     doc.text("Payout Data", 10, 10);
