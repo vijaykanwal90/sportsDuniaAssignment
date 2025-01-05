@@ -29,9 +29,9 @@ export default clerkMiddleware(async (auth,req) => {
       try {
         const user =  auth; 
         console.log(user)// Use await to resolve the user object
-        const {userId} = auth;
+        // const {userId} = auth;
         // user_2rABnkgjod3sjkactsLMOz6HrbL
-        console.log(userId)
+        // console.log(userId)
         const role =  (await auth()).userId===process.env.ADMIN_ID? "admin" : undefined
         console.log("User role:", role);
 
