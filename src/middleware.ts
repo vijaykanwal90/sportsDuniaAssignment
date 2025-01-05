@@ -4,15 +4,15 @@ import { NextResponse } from "next/server";
 const isProtectedRoute = createRouteMatcher(["/dashboard","/admin/dashboard"]);
 
 export default clerkMiddleware(async (auth,req) => {
-  console.log("Middleware running");
+  // console.log("Middleware running");
 
   try {
     const { userId } = await auth();
-    console.log("User ID:", userId);
+    // console.log("User ID:", userId);
 
     // Use URL constructor to safely handle the URL and pathname
     const url = new URL(req.url);
-    console.log("Current URL:", url.pathname);
+    // console.log("Current URL:", url.pathname);
 
     // If the user is not authenticated and trying to access non-public routes, redirect to sign-in
     // if (!userId && !publicRoutes.includes(url.pathname)) {
@@ -27,23 +27,24 @@ export default clerkMiddleware(async (auth,req) => {
     // If the user is authenticated, check their role
     if (userId) {
       try {
-        const user =  auth; 
-        console.log(user)// Use await to resolve the user object
+        // const user =  auth; 
+        // console.log(user)// Use await to resolve the user object
         // const {userId} = auth;
         // user_2rABnkgjod3sjkactsLMOz6HrbL
         // console.log(userId)
-        const role =  (await auth()).userId===process.env.ADMIN_ID? "admin" : undefined
-        console.log("User role:", role);
+        console.log(process.env.NEXT_PUBLIC_ADMIN_ID)
+        const role =  (await auth()).userId===process.env.NEXT_PUBLIC_ADMIN_ID? "admin" : undefined
+        // console.log("User role:", role);
 
         // If the user is an admin and trying to access /dashboard, redirect to /admin/dashboard
         if (role === "admin" && url.pathname === "/dashboard") {
-          console.log("Redirecting admin to admin dashboard");
+          // console.log("Redirecting admin to admin dashboard");
           return NextResponse.redirect(new URL("/admin/dashboard", req.url));
         }
 
         // If the user is not an admin and tries to access any admin routes, redirect them to /dashboard
         if (role !== "admin" && url.pathname.startsWith("/admin")) {
-          console.log("Redirecting non-admin from admin route");
+          // console.log("Redirecting non-admin from admin route");
           return NextResponse.redirect(new URL("/dashboard", req.url));
         }
 
@@ -56,7 +57,7 @@ export default clerkMiddleware(async (auth,req) => {
         // }
 
         // If no redirects are needed, continue with the request
-        console.log("Continuing with request");
+        // console.log("Continuing with request");
         return NextResponse.next();
       } catch (error) {
         console.error("Error in fetching user data:", error);
@@ -65,7 +66,7 @@ export default clerkMiddleware(async (auth,req) => {
     }
 
     // If no redirects are needed for unauthenticated users, continue with the request
-    console.log("Continuing with unauthenticated request");
+    // console.log("Continuing with unauthenticated request");
     return NextResponse.next();
   } catch (error) {
     console.error("Middleware error:", error);

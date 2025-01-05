@@ -2,7 +2,6 @@
 
 import { TrendingUp } from 'lucide-react'
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip } from 'recharts'
-
 import {
   Card,
   CardContent,
@@ -38,6 +37,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ChartLine() {
+  
   return (
     <Card>
       <CardHeader>

@@ -17,7 +17,32 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://newsapi.org/v2/everything?q=apple&from=2025-01-04&to=2025-01-04&sortBy=popularity&apiKey=4962b8ca3e3f40f393a3326ce49de7b7");
+      const key = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+      console.log("the key is " +key)
+      // Get the current date
+const currentDate = new Date();
+const year = currentDate.getFullYear();
+const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Add 1 as months are zero-indexed
+const day = String(currentDate.getDate()).padStart(2, '0');
+
+// Format the current date
+const formattedDate = `${year}-${month}-${day}`;
+
+// Get the date 5 days earlier
+const fromDate = new Date(currentDate);
+fromDate.setDate(currentDate.getDate() - 1); // Subtract 5 days
+
+// Format the 'fromDate' (5 days earlier)
+const fromYear = fromDate.getFullYear();
+const fromMonth = String(fromDate.getMonth() + 1).padStart(2, '0');
+const fromDay = String(fromDate.getDate()).padStart(2, '0');
+const formattedFromDate = `${fromYear}-${fromMonth}-${fromDay}`;
+
+console.log('Current Date:', formattedDate);       // Current Date
+console.log('5 Days Earlier:', formattedFromDate); // 5 Days Earlier
+// Example output: '2025-01-05'
+
+      const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=${formattedFromDate}&to=${formattedDate}&sortBy=popularity&apiKey=${key}`);
       const result = await response.json();
       
       const processedArticles = result.articles.map((article, index) => ({
