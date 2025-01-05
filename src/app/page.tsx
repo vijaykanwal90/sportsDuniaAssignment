@@ -38,8 +38,6 @@ const fromMonth = String(fromDate.getMonth() + 1).padStart(2, '0');
 const fromDay = String(fromDate.getDate()).padStart(2, '0');
 const formattedFromDate = `${fromYear}-${fromMonth}-${fromDay}`;
 
-console.log('Current Date:', formattedDate);       // Current Date
-console.log('5 Days Earlier:', formattedFromDate); // 5 Days Earlier
 // Example output: '2025-01-05'
 
       const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=${formattedFromDate}&to=${formattedDate}&sortBy=popularity&apiKey=${key}`);
