@@ -40,7 +40,8 @@ const formattedFromDate = `${fromYear}-${fromMonth}-${fromDay}`;
 
 // Example output: '2025-01-05'
 
-      const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=${formattedFromDate}&to=${formattedDate}&sortBy=popularity&apiKey=${key}`);
+      // const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=${formattedFromDate}&to=${formattedDate}&sortBy=popularity&apiKey=${key}`);
+      const response = await fetch("https://newsapi.org/v2/everything?q=apple&from=2025-01-04&to=2025-01-04&sortBy=popularity&apiKey=4962b8ca3e3f40f393a3326ce49de7b7")
       const result = await response.json();
       
       const processedArticles = result.articles.map((article, index) => ({

@@ -33,7 +33,9 @@
 //   );
 // }
 import type { Metadata } from 'next'
-import { Azeret_Mono as Geist_Mono } from 'next/font/google'
+// import { Azeret_Mono as Geist_Mono } from 'next/font/google'
+import { Inter as Geist, Roboto_Mono as Geist_Mono } from "next/font/google";
+
 import '@/app/globals.css'
 import { Navbar } from '@/components/Navbar'
 import { ClerkProvider } from '@clerk/nextjs'
@@ -60,12 +62,14 @@ export default function RootLayout({
 }>) {
   return (
 
-    <ClerkProvider>
+    
     <html lang="en">
       
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-gray-50 dark:bg-gray-900`}
       >
+      <ClerkProvider>
+
         <ThemeProvider
             
           >
@@ -77,10 +81,11 @@ export default function RootLayout({
 
         </ApiDataContextProvider>
 </ThemeProvider>
+</ClerkProvider>
       </body>
 
     </html>
-    </ClerkProvider>
+  
   )
 }
 
