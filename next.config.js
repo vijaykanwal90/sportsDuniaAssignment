@@ -1,12 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: [
-      'bilder3.n-tv.de',
-      'ml.globenewswire.com',
-      'media.zenfs.com'
-    ]
-  }
-};
+  reactStrictMode: true,
+  // You can add more configurations here if needed
+}
 
 module.exports = nextConfig;

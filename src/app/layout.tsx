@@ -33,7 +33,7 @@
 //   );
 // }
 import type { Metadata } from 'next'
-import { Geist, Azeret_Mono as Geist_Mono } from 'next/font/google'
+import { Azeret_Mono as Geist_Mono } from 'next/font/google'
 import '@/app/globals.css'
 import { Navbar } from '@/components/Navbar'
 import { ClerkProvider } from '@clerk/nextjs'

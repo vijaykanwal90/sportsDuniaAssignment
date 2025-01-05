@@ -1,24 +1,23 @@
-'use client'
+'use client';
 
-import { useEffect } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { AlertTriangle, ArrowLeft, RefreshCcw } from 'lucide-react'
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { AlertTriangle, ArrowLeft, RefreshCcw } from 'lucide-react';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
-  const router = useRouter()
+interface ErrorPageProps {
+  error: Error & { digest?: string }; // Ensures proper typing for error with possible digest
+  reset: () => void; // Function to reset the error boundary
+}
+
+export default function Error({ error, reset }: ErrorPageProps) {
+  const router = useRouter();
 
   useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error)
-  }, [error])
+    // Log the error to an error reporting service or console
+    console.error(error);
+  }, [error]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -27,18 +26,18 @@ export default function Error({
           <AlertTriangle className="h-12 w-12 text-yellow-500 mb-4" />
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Oops! Something went wrong</h1>
           <p className="text-gray-600 mb-6">
-             We&apos;re sorry, but an unexpected error occurred.
+            We&apos;re sorry, but an unexpected error occurred.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             <Button
-              onClick={() => reset()}
+              onClick={() => reset()} // Triggers the reset function passed by Next.js to retry
               className="flex-1 flex items-center justify-center"
             >
               <RefreshCcw className="mr-2 h-4 w-4" />
               Try again
             </Button>
             <Button
-              onClick={() => router.push('/')}
+              onClick={() => router.push('/')} // Navigate back to the homepage
               variant="outline"
               className="flex-1 flex items-center justify-center"
             >
@@ -56,6 +55,5 @@ export default function Error({
         </div>
       </div>
     </div>
-  )
+  );
 }
-
