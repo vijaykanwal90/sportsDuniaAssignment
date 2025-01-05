@@ -12,7 +12,7 @@ import { ChartLine } from '@/components/charts/chart-line'
 import { ChartPie } from '@/components/charts/chat-pie'
 
 export default function DashboardPage() {
-const [activeTab, setActiveTab] = useState('dashboard')
+  const [activeTab, setActiveTab] = useState('dashboard')
   const [numArticles, setNumArticles] = useState(0)
   const [payoutPerArticle, setPayoutPerArticle] = useState(0)
   const [totalPayout, setTotalPayout] = useState(0)
@@ -26,6 +26,14 @@ const [activeTab, setActiveTab] = useState('dashboard')
     if (adminPayout) {
       setPayoutPerArticle(parseFloat(adminPayout));
     }
+
+    // Retrieve numArticles and payoutPerArticle from localStorage
+    const storedNumArticles = localStorage.getItem('numArticles');
+    const storedPayoutPerArticle = localStorage.getItem('payoutPerArticle');
+    if (storedNumArticles && storedPayoutPerArticle) {
+      setNumArticles(parseInt(storedNumArticles));
+      setPayoutPerArticle(parseFloat(storedPayoutPerArticle));
+    }
   }, []);
 
   const handleNumArticlesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,11 +42,11 @@ const [activeTab, setActiveTab] = useState('dashboard')
 
   const calculateTotalPayout = () => {
     setTotalPayout(numArticles * payoutPerArticle)
-  }
 
-  const saveValues = () => {
+    // Save values to localStorage after calculation
     localStorage.setItem('numArticles', numArticles.toString())
     localStorage.setItem('payoutPerArticle', payoutPerArticle.toString())
+
     showToast("Your input has been saved successfully.")
   }
 
@@ -83,7 +91,7 @@ const [activeTab, setActiveTab] = useState('dashboard')
   }
 
   return (
-<div className="p-4">
+    <div className="p-4">
       {/* Tab Navigation */}
       <div className="mb-4">
         <button
@@ -192,14 +200,13 @@ const [activeTab, setActiveTab] = useState('dashboard')
 
       {activeTab === 'news-insights' && (
         <div className="flex min-h-svh items-center justify-center p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl">
-          <ChartLine />
-          <ChartBar />
-          <ChartArea />
-          <ChartPie />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl">
+            <ChartLine />
+            <ChartBar />
+            <ChartArea />
+            <ChartPie />
+          </div>
         </div>
-      </div>
-  
       )}
 
       {/* Toast notification */}
@@ -209,6 +216,5 @@ const [activeTab, setActiveTab] = useState('dashboard')
         </div>
       )}
     </div>
-
   )
 }
