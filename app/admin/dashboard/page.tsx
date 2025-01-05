@@ -10,23 +10,17 @@ import 'react-toastify/dist/ReactToastify.css'
 const AdminPage = () => {
   const [payoutValue, setPayoutValue] = useState('')
   const [currentPayoutValue, setCurrentPayoutValue] = useState('')
-  const [debugInfo, setDebugInfo] = useState('')
 
   useEffect(() => {
     const loadPayoutValue = () => {
       try {
         const storedValue = localStorage.getItem('payoutValue')
         console.log('Stored payout value:', storedValue)
-        setDebugInfo(prev => prev + `\nStored value: ${storedValue}`)
         if (storedValue) {
           setCurrentPayoutValue(storedValue)
-          setDebugInfo(prev => prev + `\nSet current payout value to: ${storedValue}`)
-        } else {
-          setDebugInfo(prev => prev + '\nNo stored payout value found')
         }
       } catch (error) {
         console.error('Error loading payout value:', error)
-        setDebugInfo(prev => prev + `\nError loading payout value: ${error.message}`)
       }
     }
 
@@ -46,13 +40,11 @@ const AdminPage = () => {
     try {
       localStorage.setItem('payoutValue', payoutValue)
       console.log('Saved payout value:', payoutValue)
-      setDebugInfo(prev => prev + `\nSaved payout value: ${payoutValue}`)
       setCurrentPayoutValue(payoutValue)
       setPayoutValue('')  // Clear the input field
       toast.success('Payout value saved successfully')
     } catch (error) {
       console.error('Error saving payout value:', error)
-      setDebugInfo(prev => prev + `\nError saving payout value: ${error.message}`)
       toast.error('Failed to save payout value')
     }
   }
@@ -86,10 +78,6 @@ const AdminPage = () => {
               Save Payout Value
             </Button>
           </form>
-          {/* <div className="mt-4">
-            <h4 className="text-sm font-semibold mb-2">Debug Information</h4>
-            <pre className="text-xs bg-gray-100 p-2 rounded">{debugInfo}</pre>
-          </div> */}
         </CardContent>
       </Card>
       <ToastContainer position="bottom-right" />
@@ -98,4 +86,3 @@ const AdminPage = () => {
 }
 
 export default AdminPage
-

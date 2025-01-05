@@ -8,16 +8,28 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { useApiDataContext } from "./Context/Store";
 import { Filter } from "@/components/Filter";
 
+// Define article type
+interface Article {
+  id: string;
+  urlToImage: string;
+  title: string;
+  description: string;
+  author: string;
+  index: number;
+  publishedAt: string;
+  url: string;
+}
+
 export default function Home() {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const { data, originalData, setOriginalData } = useApiDataContext();
+  const [articles, setArticles] = useState<Article[]>([]); // Type the articles state
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
+  const { setOriginalData } = useApiDataContext();
 
   const fetchData = async () => {
     try {
       const key = process.env.NEXT_PUBLIC_NEWS_API_KEY;
-      console.log("the key is " + key);
+      console.log("The key is " + key);
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();
@@ -34,8 +46,8 @@ export default function Home() {
 
       const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=${formattedFromDate}&to=${formattedDate}&sortBy=popularity&apiKey=${key}`);
       const result = await response.json();
-      
-      const processedArticles = result.articles.map((article, index) => ({
+
+      const processedArticles = result.articles.map((article: any, index: number) => ({
         ...article,
         id: article.source.id || uuidv4(),
         urlToImage: article.urlToImage || "/placeholder.svg?height=200&width=300",
@@ -44,15 +56,16 @@ export default function Home() {
         author: article.author || "Unknown Author",
         index: index + 1,
       }));
-      
+
       setArticles(processedArticles);
+
       const extractedData = processedArticles.map((article) => ({
         name: article.author,
         title: article.title,
         urlToImage: article.urlToImage,
         index: article.index,
         url: article.url,
-        date: article.publishedAt
+        date: article.publishedAt,
       }));
 
       setOriginalData(extractedData);
@@ -116,8 +129,6 @@ export default function Home() {
                   <img
                     src={article.urlToImage}
                     alt={article.title}
-                    layout="fill"
-                    objectFit="cover"
                     className="rounded-md absolute top-0 left-0"
                   />
                 </div>
