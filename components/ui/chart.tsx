@@ -24,7 +24,7 @@ export function ChartContainer({
   className,
   ...props
 }: ChartContainerProps) {
-  const { theme } = useTheme()
+  // const { theme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {

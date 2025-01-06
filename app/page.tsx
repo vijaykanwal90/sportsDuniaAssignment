@@ -31,10 +31,10 @@ export default function Home() {
       console.log("The key is " + key);
 
       const currentDate = new Date();
-      const year = currentDate.getFullYear();
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-      const day = String(currentDate.getDate()).padStart(2, '0');
-      const formattedDate = `${year}-${month}-${day}`;
+      // const year = currentDate.getFullYear();
+      // const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      // const day = String(currentDate.getDate()).padStart(2, '0');
+      // const formattedDate = `${year}-${month}-${day}`;
 
       const fromDate = new Date(currentDate);
       fromDate.setDate(currentDate.getDate() - 1);
@@ -45,7 +45,7 @@ export default function Home() {
 
       // Example URL to fetch articles
       // const response = await fetch(`https://newsapi.org/v2/everything?q=tesla&from=${formattedFromDate}&to=${formattedDate}&sortBy=publishedAt&apiKey=${key}`);
-      const response = await fetch ("https://newsapi.org/v2/everything?q=tesla&from=2024-12-06&sortBy=publishedAt&apiKey=4962b8ca3e3f40f393a3326ce49de7b7")
+      const response = await fetch (`https://newsapi.org/v2/everything?q=tesla&from=${formattedFromDate}&sortBy=publishedAt&apiKey=${key}`)
       const result = await response.json();
 
       if (result.status !== 'ok') {
