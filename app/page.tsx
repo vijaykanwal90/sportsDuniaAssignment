@@ -67,9 +67,12 @@ export default function Home() {
 
   return (
     <div className="container mx-auto px-6 py-12">
-      <h1 className="text-5xl font-extrabold text-center mb-8 text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-600">
-        News Articles
-      </h1>
+      <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 
+  bg-clip-text text-transparent 
+  bg-gradient-to-r from-primary to-primary/80 
+  dark:text-white dark:bg-gradient-to-r dark:from-indigo-500 dark:to-blue-500">
+  News Articles
+</h1>
 
       <div className="mb-8 flex justify-center">
         <Filter />
