@@ -11,6 +11,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from 'lucide-react'
 import { useApiDataContext } from '@/app/Context/Store'
@@ -18,13 +19,12 @@ import { useApiDataContext } from '@/app/Context/Store'
 export function Filter() {
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
   const [selectedFilter, setSelectedFilter] = useState<'authors' | 'date' | null>(null)
-  // const [filteredData , setFilteredData] = useState()
-  const {setData , originalData} = useApiDataContext()
+  const { setData, originalData } = useApiDataContext()
   
   // Get the list of unique authors
-  const authorsList = [...new Set(originalData.map((item) => item.name))]; // Ensure authors are unique
+  const authorsList = [...new Set(originalData.map((item) => item.author))];
   
-  const getFormattedDate = (dateStr:string) => {
+  const getFormattedDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -32,32 +32,23 @@ export function Filter() {
       day: 'numeric',
     });
   };
-  // console.log(originalData)
+
   // Get the list of unique formatted dates
-  const uniqueDates = originalData.map((item) => getFormattedDate(item.date)); // Apply formatting to each date
-  const dates = [...new Set(uniqueDates)]; // Remove duplicates by using a Set
-  
-  // console.log(data)
+  const uniqueDates = originalData.map((item) => getFormattedDate(item.publishedAt));
+  const dates = [...new Set(uniqueDates)];
 
   const handleItemSelect = (item: string, filter: 'authors' | 'date') => {
     setSelectedItem(item)
     setSelectedFilter(filter)
     const filteredData = originalData.filter((res) => {
       if (filter === 'authors') {
-        return res.name === item; // Filter by selected author
+        return res.author === item;
       } else if (filter === 'date') {
-        const formattedDate = getFormattedDate(item);
-        return getFormattedDate(res.date) === formattedDate; // Filter by selected date
+        return getFormattedDate(res.publishedAt) === item;
       }
-      return true; // Return all data if no filter is applied
+      return true;
     });
-    // console.log(filteredData)
-    // Update the context with the filtered data
-    // setFilteredData(filteredData);
-    // setData(filterData(item,filter))
-    // console.log(data)
     setData(filteredData)
-    
   }
 
   return (
@@ -69,6 +60,14 @@ export function Filter() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
+          <DropdownMenuItem onSelect={() => {
+            setSelectedItem(null);
+            setSelectedFilter(null);
+            setData([]);
+          }}>
+            Clear Filter
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>Authors</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
@@ -117,3 +116,4 @@ export function Filter() {
     </div>
   )
 }
+
