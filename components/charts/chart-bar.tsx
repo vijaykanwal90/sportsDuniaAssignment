@@ -16,7 +16,7 @@ import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
+  
 } from "@/components/ui/chart"
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -57,9 +57,7 @@ export function ChartBar() {
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
+              content="dashed" config={chartConfig}            />
             <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
             <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
           </BarChart>

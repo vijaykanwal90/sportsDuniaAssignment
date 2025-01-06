@@ -50,7 +50,7 @@ export function ChartContainer({
       }
     >
       <ResponsiveContainer width="100%" height="100%">
-        {children}
+        {React.isValidElement(children) ? children : <div />}
       </ResponsiveContainer>
     </div>
   )
@@ -168,7 +168,7 @@ export function ChartTooltipContent({
       {label && <div className="mb-2 font-medium">{label}</div>}
       <div className="grid gap-2">
         {payload.map((item, index) => {
-          const labelValue = labelKey ? item[labelKey] : item.name
+          const labelValue = labelKey ? (item as { [key: string]: unknown })[labelKey] : item.name
           return (
             <div key={`item-${index}`} className="flex items-center gap-2">
               {indicator === "dot" && (
@@ -185,7 +185,7 @@ export function ChartTooltipContent({
               )}
               {!hideLabel && (
                 <span className="text-sm font-medium text-muted-foreground">
-                  {labelValue}:
+                  {String(labelValue)}:
                 </span>
               )}
               <span className="font-bold">{item.value}</span>

@@ -6,9 +6,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { ChartArea } from '@/components/charts/chart-area'
+
 import { ChartBar } from '@/components/charts/chart-bar'
-import { ChartLine } from '@/components/charts/chart-line'
+
 import { ChartPie } from '@/components/charts/chat-pie'
 import { jsPDF } from "jspdf";
 
@@ -202,9 +202,9 @@ export default function DashboardPage() {
       {activeTab === 'news-insights' && (
         <div className="flex min-h-svh items-center justify-center p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl">
-            <ChartLine />
+           
             <ChartBar />
-            <ChartArea />
+            
             <ChartPie />
           </div>
         </div>

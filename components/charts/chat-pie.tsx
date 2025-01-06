@@ -29,6 +29,7 @@ const chartData = [
 const chartConfig = {
   visitors: {
     label: 'Visitors',
+    color: 'hsl(var(--chart-6))',
   },
   chrome: {
     label: 'Chrome',

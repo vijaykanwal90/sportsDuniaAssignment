@@ -4,20 +4,17 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Input } from "@/components/ui/input"
 import { Search } from 'lucide-react'
+import { useApiDataContext,DataItem} from "@/app/Context/Store"; // Import Article type
+
 import { SignInButton, SignedIn, SignedOut, UserButton, useAuth } from '@clerk/nextjs'
-import { useApiDataContext } from '@/app/Context/Store'
+// import { useApiDataContext } from '@/app/Context/Store'
 import ThemeToggler from './ThemeToggler'
 
-interface DataType {
-  title: string;
-  name: string;
-  url?: string;
-}
 
 export function Navbar() {
   const { originalData } = useApiDataContext();
   const [searchText, setSearchText] = useState('')
-  const [searchedData, setSearchedData] = useState<DataType[]>([])
+  const [searchedData, setSearchedData] = useState<DataItem[]>([]); 
   const { isSignedIn } = useAuth();
   const [isClient, setIsClient] = useState(false)
 
@@ -27,10 +24,18 @@ export function Navbar() {
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      const filteredArticles = originalData.filter((article) =>
-        article.title.toLowerCase().includes(searchText.toLowerCase()) ||
-        article.name.toLowerCase().includes(searchText.toLowerCase())
-      );
+      const filteredArticles = originalData.filter((article: DataItem) => {
+        // Check if the article is of type Article and then filter based on title and author
+        if ('title' in article && 'author' in article) {
+          const title = article.title?.toLowerCase() || '';  // Default to empty string if title is undefined
+          const author = article.author?.toLowerCase() || '';  // Default to empty string if author is undefined
+  
+          return title.includes(searchText.toLowerCase()) || author.includes(searchText.toLowerCase());
+        }
+  
+        return false; // In case it's not an Article, return false
+      });
+  
       setSearchedData(filteredArticles);
     }
   };
@@ -88,9 +93,13 @@ export function Navbar() {
         {/* Sign In/Sign Out Logic */}
         {isClient && (
           <header>
+      {/* @ts-expect-error Async Server Component */}
+
             <SignedOut>
               <SignInButton />
             </SignedOut>
+      {/* @ts-expect-error Async Server Component */}
+
             <SignedIn>
               <UserButton />
             </SignedIn>
